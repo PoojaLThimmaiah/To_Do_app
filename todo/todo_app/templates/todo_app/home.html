@@ -1,0 +1,38 @@
+{% extends "todo_app/base.html" %}
+
+  {% block bodyblock %}
+<div class="container">
+  <br>
+  {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {{message}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+    {% endfor %}
+  {% endif %}
+  {% if item %}
+  <table class="table table-bordered">
+    {% for thing in item %}
+      {% if thing.completed %}
+     <tr class="table-secondary">
+        <td class = "striker"><a href="{% url 'todo_app:edit' thing.id %}">{{thing.item}}</a></td>
+        <td><a href="{% url 'todo_app:uncross' thing.id %}">Uncross</a></td>
+        <td><a href="{% url 'todo_app:remove' thing.id %}">Delete</a></td>
+    </tr>
+    {% else %}
+   <tr>
+      <td><a href="{% url 'todo_app:edit' thing.id %}">{{thing.item}}</a></td>
+      <td><a href="{% url 'todo_app:cross' thing.id %}">cross</a></td>
+      <td><a href="{% url 'todo_app:remove' thing.id %}">Delete</a></td>
+  </tr>
+  {% endif %}
+    {% endfor %}
+   </table>
+   {% endif %}
+
+</div>
+  {% endblock %}
